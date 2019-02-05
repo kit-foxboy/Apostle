@@ -17,7 +17,12 @@ class EmployeeHomeScreen extends Component {
     };
 
     state = {
-        buttonData: []
+        buttonData: [
+            {key: "a"},
+            {key: "b"},
+            {key: "c"},
+            {key: "d"}
+        ]
     }
 
     //lifecycle methods
@@ -31,7 +36,8 @@ class EmployeeHomeScreen extends Component {
 
     render = () => {
 
-        return <ButtonGroup clickHandler={this._clickHandler} />;
+        return <ButtonGroup buttonData={this.state.buttonData} clickHandler={this._clickHandler} />;
+        
     }
 
     //classs methods
@@ -42,8 +48,9 @@ class EmployeeHomeScreen extends Component {
     }
 
     _clickHandler = () => {
-        
         //TODO: handle button click
+        // eslint-disable-next-line react/prop-types
+        this.props.navigation.navigate('Checklist');                
     }
 }
 

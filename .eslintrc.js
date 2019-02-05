@@ -31,6 +31,7 @@ module.exports = {
         ]
     },
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "react/display-name": "off"
     }
 }
