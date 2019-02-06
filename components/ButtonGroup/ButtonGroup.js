@@ -1,16 +1,16 @@
 //import modules
 import React from "react";
-import { FlatList, TouchableWithoutFeedback, Button } from "react-native";
+import { FlatList, TouchableOpacity, Button } from "react-native";
 import PropTypes from "prop-types";
 
 function ButtonGroup(props) {
     return (
-        <TouchableWithoutFeedback>
+        <TouchableOpacity>
             <FlatList
                 data={props.buttonData}
                 renderItem={_renderItem}
             />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
     );
 }
 
