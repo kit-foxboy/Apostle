@@ -35,7 +35,6 @@ class EmployeeHomeScreen extends Component {
     }
 
     render = () => {
-
         return <ButtonGroup buttonData={this.state.buttonData} clickHandler={this._clickHandler} />;
         
     }
