@@ -1,56 +1,57 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-import RadioGroup from 'react-native-radio-buttons-group';
+import { RadioGroup } from 'react-native-btr';
 
 export default class RadioButtons extends Component {
-    state = {
-        data: [
-            {
-                label: 'Pass',
-                checked: false,
-            },
-            
-            {
-                label: 'Fail',
-                value: "Fail",
-                checked: false
-            },
-            
-        ],
-    };
+  state = {
+    radioButtons: [
+      {
+        label: 'Pass',
+        value: 'Pass',
+        checked: false,
+        color: '#000',
+        disabled: false,
+        flexDirection: 'row',
+        size: 9,
+      },
+      {
+        label: 'Fail',
+        value: 'Fail',
+        checked: false,
+        color: '#000',
+        disabled: false,
+        flexDirection: 'row',
+        size: 9,
+      },
+    ],
+  };
 
-    // update state
-    onPress = data => this.setState({ data });
+  // update state
+  onPress = data => this.setState({ data });
 
-    render() {
-      
-        let selectedButton = this.state.data.find(e => e.selected == true);
-        selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
-        return (
-            <View style={styles.container}>
-                <Text style={styles.valueText}>
-                    Value = {selectedButton}
-                </Text>
-                <RadioGroup 
-    checked = { false }           
-    radioButtons={this.state.data} 
-    onPress={this.onPress} 
-    flexDirection='row'
-/>
-            </View>
-        );
-    }
+  render() {
+
+    return (
+      <View style={styles.container}>
+        <RadioGroup
+          color="#000"
+          labelStyle={{ fontSize: 14 }}
+          radioButtons={this.state.radioButtons}
+          onPress={radioButtons => this.setState({ radioButtons })}
+          style={styles.container}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    valueText: {
-        fontSize: 18, 
-        marginBottom: 50,
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  
 });
