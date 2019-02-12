@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { AsyncStorage } from "react-native";
 import { Header, Button } from "react-native-elements";
 import PropTypes from "prop-types";
-import { ButtonGroup } from "../components/ButtonGroup";
+import { ButtonGroup } from "../components";
 
 class EmployeeHomeScreen extends Component {
 

@@ -1,11 +1,6 @@
 //import modules
 import React, { Component } from "react";
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  View,
-} from "react-native";
+import { ActivityIndicator, AsyncStorage, StatusBar,View } from "react-native";
 import PropTypes from "prop-types";
 import Layout from "../constants/Layout";
 

@@ -4,7 +4,7 @@ import {View, KeyboardAvoidingView, TouchableOpacity, Text, TextInput} from "rea
 import PropTypes from "prop-types";
 
 //import styles
-import Theme from "../../constants/Theme";
+import Theme from "../constants/Theme";
 import Styles from "./styles";
 
 function SignInForm(props) {

@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 75534,
   "expoServerNgrokUrl": "https://pv-3t2.kitfoxboy.apostle.exp.direct",
   "packagerNgrokUrl": "https://packager.pv-3t2.kitfoxboy.apostle.exp.direct",
-  "ngrokPid": 73573,
+  "ngrokPid": 75557,
   "devToolsPort": 19002
 }

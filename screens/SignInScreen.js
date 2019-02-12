@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { AsyncStorage, Alert } from "react-native";
 import { Header } from "react-native-elements";
 import PropTypes from "prop-types";
-import { SignInForm } from "../components/SigninForm";
+import { SignInForm } from "../components";
 import Axios from "axios";
 
 

@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { Header } from "react-native-elements";
 import PropTypes from "prop-types";
 import ChecklistForm from "../components/ChecklistForm";
+import Styles from "../components/styles";
 console.log(ChecklistForm);
 
 class Checklist extends Component {
@@ -19,7 +20,7 @@ class Checklist extends Component {
     
     render () {
         return(
-            <View>
+            <View style={Styles.componentContainer}>
                 <ChecklistForm />
             </View>
         );
