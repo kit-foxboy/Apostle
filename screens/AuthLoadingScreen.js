@@ -6,6 +6,7 @@ import {
   StatusBar,
   View,
 } from "react-native";
+import PropTypes from "prop-types";
 import Layout from "../constants/Layout";
 
 class AuthLoadingScreen extends Component {
@@ -32,10 +33,13 @@ class AuthLoadingScreen extends Component {
         const userType = await AsyncStorage.getItem("userType");
         const appType = (userType && userType === "admin") ? "AdminApp" : "EmployeeApp";
         
-        // eslint-disable-next-line react/prop-types
         this.props.navigation.navigate(userToken ? appType : "Auth");
     };
 
+}
+
+AuthLoadingScreen.propTypes = {
+    navigation: PropTypes.object.isRequired
 }
 
 export default AuthLoadingScreen;

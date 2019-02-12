@@ -1,26 +1,40 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import Theme from "../../constants/Theme";
 
 const styles = StyleSheet.create({
-    componentContainer: {
-        flex: 1,
-        flexDirection: "row",
+
+    listContainer: {
+        flexDirection: "column", 
+        alignItems: "center",
+        backgroundColor: Theme.colors.bgPrimary
+    },
+
+    actionButton: {
+        flexBasis: "30%",
+        height: 75,
+        marginTop: 10,
+        marginStart: 5,
+        marginEnd: 5,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderStyle: "solid",
+        borderColor: "#e1e1e1",
         backgroundColor: Theme.colors.btnPrimary
     },
 
-    buttonContainer: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: Theme.colors.bgPrimary,
-      },
+    textContainer: {
+        flex: 1, 
+        justifyContent: "center"
+    },
 
-      buttonOne: {
-        flex: 1,
-        backgroundColor: Theme.colors.btnPrimary
-      
-      }
-    
+    buttonText: {
+        color: "#ffffff", 
+        width: "100%", 
+        textAlign: "center", 
+        textAlignVertical: "center", 
+        fontWeight: "bold"
+    }
+
 });
 
 export default styles;

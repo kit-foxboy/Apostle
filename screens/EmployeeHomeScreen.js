@@ -1,34 +1,32 @@
 //import modules
 import React, { Component } from "react";
-import { AsyncStorage, Button } from "react-native";
+import { AsyncStorage } from "react-native";
+import { Header, Button } from "react-native-elements";
+import PropTypes from "prop-types";
 import { ButtonGroup } from "../components/ButtonGroup";
 
 class EmployeeHomeScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-          headerRight: (
-            <Button
-              onPress={() => navigation.getParam("logout")()}
-              title="Logout"
-            />
+          header: (
+            <Header rightComponent={
+                <Button title="Logout" onPress={() => navigation.getParam("logout")()}  />
+            } />
           ),
         };
     };
 
     state = {
         buttonData: [
-            {key: "a"},
-            {key: "b"},
-            {key: "c"},
-            {key: "d"}
+            // {actionName: "Clock In", action: "clockin"},
+            {key: "0", actionName: "Vehicle Inspection", action: "checklist"},
         ]
     }
 
     //lifecycle methods
     componentWillMount() {
         
-        // eslint-disable-next-line react/prop-types
         this.props.navigation.setParams({ logout: this._signoutAsync })
         
         //TODO: make API request for real data
@@ -36,7 +34,6 @@ class EmployeeHomeScreen extends Component {
 
     render = () => {
         return <ButtonGroup buttonData={this.state.buttonData} clickHandler={this._clickHandler} />;
-        
     }
 
     //classs methods
@@ -47,10 +44,12 @@ class EmployeeHomeScreen extends Component {
     }
 
     _clickHandler = () => {
-        //TODO: handle button click
-        // eslint-disable-next-line react/prop-types
-        this.props.navigation.navigate('Checklist');                
+        this.props.navigation.navigate("Checklist", {title: "Vehicle Inspection"});                
     }
+}
+
+EmployeeHomeScreen.propTypes = {
+    navigation: PropTypes.object.isRequired
 }
 
 export default EmployeeHomeScreen;

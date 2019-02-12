@@ -1,29 +1,24 @@
 //import modules
 import React from "react";
-import { FlatList, TouchableOpacity, View, Button } from "react-native";
+import { TouchableOpacity, View, Text, FlatList } from "react-native";
 import PropTypes from "prop-types";
+import Styles from "./styles";
 
 function ButtonGroup(props) {
     
     // eslint-disable-next-line react/prop-types
     const _renderItem = ({item}) => {
         return (
-            <View>
-                <Button
-                    onPress={() => props.clickHandler()}
-                    title={item.key}
-                />
-            </View>
+            <TouchableOpacity style={Styles.actionButton} key={item.key} onPress={() => props.clickHandler()}>
+                <View style={Styles.textContainer}>
+                    <Text style={Styles.buttonText}>{item.actionName}</Text>
+                </View>
+            </TouchableOpacity>
         );
     }
 
     return (
-        <TouchableOpacity>
-            <FlatList
-                data={props.buttonData}
-                renderItem={_renderItem}
-            />
-        </TouchableOpacity>
+        <FlatList data={props.buttonData} renderItem={_renderItem} numColumns={3} style={Styles.listContainer} />
     );
     
 }

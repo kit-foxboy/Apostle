@@ -10,10 +10,22 @@
 //import modules
 import React, { Component } from "react";
 import { Platform, View, StatusBar } from "react-native";
+import { ThemeProvider } from "react-native-elements";
 import { AppLoading, Asset, Font } from 'expo';
 import AppNavigator from "./navigation/AppNavigator";
 import Layout from "./constants/Layout";
+import Theme from "./constants/Theme";
 
+
+const appTheme = {
+    Header: {
+        backgroundColor: Theme.colors.statusBar
+    },
+    Button: {
+        titleStyle: { color: Theme.colors.statusBarText },
+        buttonStyle: { backgroundColor: Theme.colors.statusBarButton }
+    }
+}
 
 //export app
 type Props = {};
@@ -38,8 +50,10 @@ export default class App extends Component<Props> {
         } else {
             return (
                 <View style={Layout.container}>
-                    {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-                    <AppNavigator />
+                    {Platform.OS === 'ios' && <StatusBar barStyle="default"  />}
+                    <ThemeProvider theme={appTheme}>
+                        <AppNavigator />
+                    </ThemeProvider>
                 </View>
             );
         }
