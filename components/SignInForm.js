@@ -12,7 +12,7 @@ function SignInForm(props) {
     return (
         <KeyboardAvoidingView style={Styles.componentContainer} behavior="padding">
             <View style={Styles.loginScreenContainer}>
-                <View style={Styles.loginFormView}>
+                <View style={Styles.formView}>
                     <Text style={Styles.logoText}>Apostle</Text>
                     <TextInput 
                         onChangeText={text => props.userNameHandler(text)}

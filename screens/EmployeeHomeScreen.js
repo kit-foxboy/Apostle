@@ -1,6 +1,6 @@
 //import modules
 import React, { Component } from "react";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, Text } from "react-native";
 import { Header, Button } from "react-native-elements";
 import PropTypes from "prop-types";
 import { ButtonGroup } from "../components";
@@ -10,9 +10,10 @@ class EmployeeHomeScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
           header: (
-            <Header rightComponent={
-                <Button title="Logout" onPress={() => navigation.getParam("logout")()}  />
-            } />
+            <Header 
+                centerComponent={<Text style={{fontSize: 40}}>Apostle</Text>}
+                rightComponent={<Button title="Logout" onPress={() => navigation.getParam("logout", () => {})()}  />} 
+            />
           ),
         };
     };
@@ -20,7 +21,15 @@ class EmployeeHomeScreen extends Component {
     state = {
         buttonData: [
             // {actionName: "Clock In", action: "clockin"},
-            {key: "0", actionName: "Vehicle Inspection", action: "checklist"},
+            {key: "0", actionName: "Begin Day", action: "checklist"},
+            {key: "0", actionName: "Pre-Vehicle Inspection", action: "checklist"},
+            {key: "0", actionName: "Out of the Barn", action: "checklist"},
+            {key: "0", actionName: "Going to Lunch", action: "checklist"},
+            {key: "0", actionName: "Back from Lunch", action: "checklist"},
+            {key: "0", actionName: "Vehicle Fueled", action: "checklist"},
+            {key: "0", actionName: "Back at the Barn", action: "checklist"},
+            {key: "0", actionName: "Post-Vehicle Inspection", action: "checklist"},
+            {key: "0", actionName: "End Day", action: "checklist"},
         ]
     }
 
@@ -44,7 +53,7 @@ class EmployeeHomeScreen extends Component {
     }
 
     _clickHandler = () => {
-        this.props.navigation.navigate("Checklist", {title: "Vehicle Inspection"});                
+        this.props.navigation.navigate("Checklist", {title: "Vehicle Inspection", backButton: true});                
     }
 }
 

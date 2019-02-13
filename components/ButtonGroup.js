@@ -1,6 +1,6 @@
 //import modules
 import React from "react";
-import { TouchableOpacity, View, Text, FlatList } from "react-native";
+import { TouchableOpacity, View, Text, Image, FlatList } from "react-native";
 import PropTypes from "prop-types";
 import Styles from "./styles";
 
@@ -18,7 +18,12 @@ function ButtonGroup(props) {
     }
 
     return (
-        <FlatList data={props.buttonData} renderItem={_renderItem} numColumns={3} style={Styles.listContainer} />
+        <View style={Styles.componentContainer}>
+            <View style={Styles.logoContainer}>
+                <Image source={require("../assets/images/truck.jpg")} />
+            </View>
+            <FlatList data={props.buttonData} renderItem={_renderItem} numColumns={3} style={Styles.listContainer} />
+        </View>
     );
     
 }

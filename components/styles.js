@@ -9,6 +9,13 @@ const styles = StyleSheet.create({
         backgroundColor: Theme.colors.bgPrimary
     },
 
+    logoContainer: {
+        flex: 1, 
+        flexDirection: "row", 
+        alignItems: "center",
+        justifyContent: "center"
+    },
+
     actionButton: {
         flexBasis: "30%",
         height: 75,
@@ -50,7 +57,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: Theme.colors.lightText
     },
-    loginFormView: {
+    formView: {
         flex: 1
     },
     loginFormTextInput: {

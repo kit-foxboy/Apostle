@@ -76,7 +76,7 @@ class SignInScreen extends Component {
                 //navigate to main stack
                 this.props.navigation.navigate((this.userType === "admin") ? "AdminApp" : "EmployeeApp");
 
-            })).catch(err => Alert.alert("Sign In Failed", "An error ocurred: " + err));
+            })).catch(err => Alert.alert("Sign In Failed", "An error ocurred: " + err.toString()));
         }
         
     };
