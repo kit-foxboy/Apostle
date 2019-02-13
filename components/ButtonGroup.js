@@ -22,7 +22,7 @@ function ButtonGroup(props) {
             <View style={Styles.logoContainer}>
                 <Image source={require("../assets/images/truck.jpg")} />
             </View>
-            <FlatList data={props.buttonData} renderItem={_renderItem} numColumns={3} style={Styles.listContainer} />
+            <FlatList data={props.buttonData} renderItem={_renderItem} numColumns={3} />
         </View>
     );
     
