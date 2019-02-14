@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
-import { ListItem, } from "react-native-elements";
+import { ListItem, Button } from "react-native-elements";
 import PropTypes from "prop-types";
 import shortid from "shortid";
 import Styles from "./styles";
@@ -29,10 +29,10 @@ function Checklist(props) {
     return (
         <View style={Styles.componentContainer}>
             <FlatList
+                contentContainerStyle={{flexGrow: 1, height: "85%"}}
                 keyExtractor={() => shortid.generate() }
                 data={props.list}
                 renderItem={_renderItem} />
-            {/* <Button title="Submit" onPress={{}} /> */}
         </View>
     );
 }
@@ -40,6 +40,7 @@ function Checklist(props) {
 Checklist.propTypes = {
     list: PropTypes.arrayOf(PropTypes.object).isRequired,
     clickHandler: PropTypes.func.isRequired,
+    submitHandler: PropTypes.func.isRequired,
     index: PropTypes.number,
     item: PropTypes.object
 }

@@ -12,7 +12,7 @@ class ChecklistScreen extends Component {
 
     state = {
         car: {
-            id: 0,
+            id: 1,
             make: "",
             model: "",
             registrationDate: "",
@@ -45,21 +45,29 @@ class ChecklistScreen extends Component {
         
         const leftComponent = (navigation.getParam("backButton", true) === true) ?
             <Button title="Cancel" onPress={() => navigation.getParam("cancel", () => { navigation.navigate("Home"); })()} /> : null;
-        
+        const rightComponent = (navigation.getParam("doneButton", false) === true) ?
+            <Button title="Done" onPress={() => navigation.getParam("done", () => {})()} /> : null;
+
         return {
           header: (
             <Header
                 leftComponent={leftComponent}
-                centerComponent={<Text>{navigation.getParam("title")}</Text>}/>
-          ),
+                centerComponent={<Text>{navigation.getParam("title")}</Text>}
+                rightComponent={rightComponent} />
+          )
         };
     };
     
     render () {
+
         return(
             <View style={Styles.componentContainer}>
-                {this.state.car.id === 0 && <ChecklistForm inputHandler={this._carInputHandler} submitHandler={this._carSubmitHandlerAsync} /> }
-                {this.state.car.id !== 0 && <Checklist key={shortid.generate()} list={this.state.inspectionList} clickHandler={this._inspectionClickHandler} />}
+                {this.state.car.id === 0 && 
+                    <ChecklistForm inputHandler={this._carInputHandler} submitHandler={this._carSubmitHandlerAsync} /> 
+                }
+                {this.state.car.id !== 0 && 
+                    <Checklist key={shortid.generate()} list={this.state.inspectionList} clickHandler={this._inspectionClickHandler} submitHandler={this._inspectionSubmitHandlerAsync} />
+                }
             </View>
         );
     }
@@ -67,7 +75,7 @@ class ChecklistScreen extends Component {
     _carInputHandler = (key, value) => {
         const carState = this.state.car;
         carState[key] = value;
-        this.setState({carState});
+        this.setState({car: carState});
     }
 
     _carSubmitHandlerAsync = async() => {
@@ -83,29 +91,37 @@ class ChecklistScreen extends Component {
         const userToken = await AsyncStorage.getItem("userToken");
         car.apiKey = API_KEY;
         delete car.id;
+
         Axios.post("https://apostle-dsp.herokuapp.com/api/vehicles", car).then(carResults => {
 
-            Axios.post("https://apostle-dsp.herokuapp.com/api/inspection", { userID: parseInt(userToken) }).then(inspectionResults => {
-                
-                if(carResults.data.id && inspectionResults.data.id) {
-                    this.setState({
-                        car: {
-                            id: carResults.data.id,
-                            make: this.state.car.make,
-                            model: this.state.car.model,
-                            registrationDate: this.state.car.registrationDate,
-                            registrationNbr: this.state.car.registrationNbr,
-                            vinNbr: this.state.car.vinNbr,
-                            year: this.state.car.year
-                        },
-                        inspectionId: inspectionResults.data.id
-                    });
-    
-                        this.props.navigation.setParams({backButton: false});
-                }
-            }).catch(err => {
-                Alert.alert("Registration Failed", "An error ocurred: " + err.toString());
-            });
+            
+            if (carResults.data.id) {
+                Axios.post("https://apostle-dsp.herokuapp.com/api/inspection", { 
+                    apiKey: API_KEY,
+                    userId: userToken,
+                    vehicleId: carResults.data.id
+                }).then(inspectionResults => {
+                    if (inspectionResults.data.id) {
+                        this.setState({
+                            car: {
+                                id: carResults.data.id,
+                                make: this.state.car.make,
+                                model: this.state.car.model,
+                                registrationDate: this.state.car.registrationDate,
+                                registrationNbr: this.state.car.registrationNbr,
+                                vinNbr: this.state.car.vinNbr,
+                                year: this.state.car.year
+                            },
+                            inspectionId: inspectionResults.data.id
+                        });
+        
+                            this.props.navigation.setParams({backButton: false});
+                    }
+                }).catch(err => {
+                    Alert.alert("Registration Failed", "An error ocurred: " + err.toString());
+                });
+            }   
+
         }).catch(err => {
             Alert.alert("Registration Failed", "An error ocurred: " + err.toString());
         });
@@ -113,8 +129,21 @@ class ChecklistScreen extends Component {
 
     _inspectionSubmitHandlerAsync = async () => {
 
-        //TODO: submit inspection w/ timestamp
-        this.props.navigation.navigate("Home");
+        const inspection = {
+            apiKey: API_KEY,
+            inspectionId: this.state.inspectionId
+        };
+        this.state.inspectionList.forEach(element => {
+            const title = element.title.toLowerCase();
+            inspection[title] = element.status;
+        });
+
+        Axios.post("https://apostle-dsp.herokuapp.com/api/update-inspection", inspection).then(() => {
+            this.props.navigation.navigate("Home");
+        }).catch(err => { 
+            console.log(err);
+            Alert.alert("Submission Error", "Could not save inspection. Please try again."); 
+        });
     }
 
     _inspectionClickHandler = (index, status) => {
@@ -123,6 +152,18 @@ class ChecklistScreen extends Component {
         this.setState({
             inspectionList: inspectionState,
             car: this.state.car
+        }, () => {
+
+            let done = true;
+            this.state.inspectionList.forEach(element => {
+                if (element.status === null) {
+                    done = false;
+                }
+            });
+
+            if(done) {
+                this.props.navigation.setParams({doneButton: true, done: this._inspectionSubmitHandlerAsync});
+            }
         });
     }
 }
