@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ButtonGroup } from "react-native-elements";
+import { ButtonGroup, Button } from "react-native-elements";
 
 class BinaryButtonGroup extends ButtonGroup {
 
@@ -7,9 +7,13 @@ class BinaryButtonGroup extends ButtonGroup {
         super();
 
         this.state = {
-            selectedIdx: this.props.selectedIdx
+            selectedIndex: null
         }
-    }  
+    }
+
+    // componentWillReceiveProps = props => {
+    //     this.setState({props.selectedIndex})
+    // }
 }
 
 export default BinaryButtonGroup;

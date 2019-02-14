@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, AsyncStorage } from "react-native";
 import { Header, Button } from "react-native-elements";
 import PropTypes from "prop-types";
+import { API_KEY } from "react-native-dotenv";
 import { ChecklistForm, Checklist } from "../components/";
 import Styles from "../components/styles";
 import Axios from "axios";
+import shortid from "shortid";
 
 class ChecklistScreen extends Component {
 
@@ -18,22 +20,23 @@ class ChecklistScreen extends Component {
             vinNbr: "",
             year: ""
         },
+        inspectionId: 0,
         inspectionList: [
             {
                 title: "Brakes",
-                pass: null
+                status: null
             },
             {
                 title: "Cargo",
-                pass: null
+                status: null
             },
             {
                 title: "Horn",
-                pass: null
+                status: null
             },
             {
                 title: "Tires",
-                pass: null
+                status: null
             },
         ]
     }
@@ -56,7 +59,7 @@ class ChecklistScreen extends Component {
         return(
             <View style={Styles.componentContainer}>
                 {this.state.car.id === 0 && <ChecklistForm inputHandler={this._carInputHandler} submitHandler={this._carSubmitHandlerAsync} /> }
-                {this.state.car.id !== 0 && <Checklist list={this.state.inspectionList} clickHandler={this._inspectionClickHandler} />}
+                {this.state.car.id !== 0 && <Checklist key={shortid.generate()} list={this.state.inspectionList} clickHandler={this._inspectionClickHandler} />}
             </View>
         );
     }
@@ -77,25 +80,32 @@ class ChecklistScreen extends Component {
         }
 
         const car = this.state.car;
+        const userToken = await AsyncStorage.getItem("userToken");
+        car.apiKey = API_KEY;
         delete car.id;
-        Axios.post("https://apostle-dsp.herokuapp.com/api/vehicles", car).then(results => {
+        Axios.post("https://apostle-dsp.herokuapp.com/api/vehicles", car).then(carResults => {
 
-            if(results.data.id) {
-                this.setState({
-                    car: {
-                        id: results.data.id,
-                        make: this.state.car.make,
-                        model: this.state.car.model,
-                        registrationDate: this.state.car.registrationDate,
-                        registrationNbr: this.state.car.registrationNbr,
-                        vinNbr: this.state.car.vinNbr,
-                        year: this.state.car.year
-                    }
-                });
-
-                this.props.navigation.setParams({backButton: false});
-            }
-            
+            Axios.post("https://apostle-dsp.herokuapp.com/api/inspection", { userID: parseInt(userToken) }).then(inspectionResults => {
+                
+                if(carResults.data.id && inspectionResults.data.id) {
+                    this.setState({
+                        car: {
+                            id: carResults.data.id,
+                            make: this.state.car.make,
+                            model: this.state.car.model,
+                            registrationDate: this.state.car.registrationDate,
+                            registrationNbr: this.state.car.registrationNbr,
+                            vinNbr: this.state.car.vinNbr,
+                            year: this.state.car.year
+                        },
+                        inspectionId: inspectionResults.data.id
+                    });
+    
+                        this.props.navigation.setParams({backButton: false});
+                }
+            }).catch(err => {
+                Alert.alert("Registration Failed", "An error ocurred: " + err.toString());
+            });
         }).catch(err => {
             Alert.alert("Registration Failed", "An error ocurred: " + err.toString());
         });
@@ -107,14 +117,14 @@ class ChecklistScreen extends Component {
         this.props.navigation.navigate("Home");
     }
 
-    // _inspectionClickHandler = idx => {
-    //     const inspectionState = this.state.inspectionList;
-    //     inspectionState[idx].selectedIdx = (inspectionState[idx].selectedIdx === null) ? 0 : 1;
-    //     this.setState({
-    //         inspectionList: inspectionState,
-    //         car: this.state.car
-    //     });
-    // }
+    _inspectionClickHandler = (index, status) => {
+        const inspectionState = this.state.inspectionList;
+        inspectionState[index].status = (status === 0) ? "Pass" : "Fail";
+        this.setState({
+            inspectionList: inspectionState,
+            car: this.state.car
+        });
+    }
 }
 
 ChecklistScreen.propTypes = {

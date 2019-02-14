@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { AsyncStorage, Alert } from "react-native";
 import { Header } from "react-native-elements";
 import PropTypes from "prop-types";
+import { API_KEY } from "react-native-dotenv";
 import { SignInForm } from "../components";
 import Axios from "axios";
 
@@ -58,10 +59,10 @@ class SignInScreen extends Component {
     }
 
     _signInAsync = async () => {
-
         
         if (this.state.username !== "" && this.state.password !== "") {
             Axios.post("https://apostle-dsp.herokuapp.com/api/login", {
+                apiKey: API_KEY,
                 userName: this.state.userName,
                 password: this.state.password
             }).then((async results => {

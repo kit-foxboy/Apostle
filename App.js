@@ -68,10 +68,7 @@ export default class App extends Component<Props> {
             require("./assets/images/radio-checked.svg"),
           ]),
           Font.loadAsync({
-            // This is the font that we are using for our tab bar
-            // "font-awesome": require("./assets/fonts/FontAwesome.ttf"),
-            // We include SpaceMono because we use it in HomeScreen.js. Feel free
-            // to remove this if you are not using it in your app
+            "righteous": require("./assets/fonts/Righteous-Regular.ttf"),
             'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
           }),
         ]);
