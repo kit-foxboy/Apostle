@@ -26,7 +26,7 @@ function SignInForm(props) {
                         style={Styles.loginFormTextInput} 
                         secureTextEntry={true}/>
                     <TouchableOpacity onPress={() => props.signInHandler()} style={Styles.loginButton}>
-                        <Text>Log In</Text>
+                        <Text style={Styles.loginButtonText}>Log In</Text>
                     </TouchableOpacity>
                 </View>
             </View>

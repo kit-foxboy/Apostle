@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         backgroundColor: Theme.colors.inputBackground,
         borderColor: Theme.colors.inputBorder,
+        color: "#000"
     },
     loginButton: {
         marginTop: 10,
@@ -81,7 +82,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: Theme.colors.btnPrimary,
     },
-
+    loginButtonText: {
+        color: Theme.colors.btnPrimaryText,
+        fontSize: 24
+    }
 });
 
 export default styles;

@@ -11,7 +11,7 @@ class EmployeeHomeScreen extends Component {
         return {
           header: (
             <Header 
-                centerComponent={<Text style={{fontSize: 40}}>Apostle</Text>}
+                centerComponent={<Text style={{fontSize: 35, fontFamily: "righteous"}}>Apostle</Text>}
                 rightComponent={<Button title="Logout" onPress={() => navigation.getParam("logout", () => {})()}  />} 
             />
           ),
@@ -22,14 +22,14 @@ class EmployeeHomeScreen extends Component {
         buttonData: [
             // {actionName: "Clock In", action: "clockin"},
             {key: "0", actionName: "Begin Day", action: "checklist"},
-            {key: "0", actionName: "Pre-Vehicle Inspection", action: "checklist"},
-            {key: "0", actionName: "Out of the Barn", action: "checklist"},
-            {key: "0", actionName: "Going to Lunch", action: "checklist"},
-            {key: "0", actionName: "Back from Lunch", action: "checklist"},
-            {key: "0", actionName: "Vehicle Fueled", action: "checklist"},
-            {key: "0", actionName: "Back at the Barn", action: "checklist"},
-            {key: "0", actionName: "Post-Vehicle Inspection", action: "checklist"},
-            {key: "0", actionName: "End Day", action: "checklist"},
+            {key: "1", actionName: "Pre-Vehicle Inspection", action: "checklist"},
+            {key: "2", actionName: "Out of the Barn", action: "checklist"},
+            {key: "3", actionName: "Going to Lunch", action: "checklist"},
+            {key: "4", actionName: "Back from Lunch", action: "checklist"},
+            {key: "5", actionName: "Vehicle Fueled", action: "checklist"},
+            {key: "6", actionName: "Back at the Barn", action: "checklist"},
+            {key: "7", actionName: "Post-Vehicle Inspection", action: "checklist"},
+            {key: "8", actionName: "End Day", action: "checklist"},
         ]
     }
 
