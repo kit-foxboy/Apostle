@@ -12,7 +12,7 @@ class ChecklistScreen extends Component {
 
     state = {
         car: {
-            id: 1,
+            id: 0,
             make: "",
             model: "",
             registrationDate: "",
